@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Anos de Namoro</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #4B0082;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #loginContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: white;
+            color: #4B0082;
+            border: none;
+            border-radius: 5px;
+        }
+        #content {
+            display: none;
+        }
+        #videoContainer {
+            display: none;
+            margin-top: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 390px;
+            height: auto;
+            border-radius: 10px;
+        }
+        #heartContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        #heart {
+            font-size: 200px;
+        }
+        #heartText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <script src="config.js"></script>
+    
+    <!-- Tela de Login -->
+    <div id="loginContainer">
+        <h2>Área Restrita</h2>
+        <input type="password" id="passwordInput" placeholder="Digite a senha">
+        <button onclick="checkPassword()">Entrar</button>
+    </div>
+
+    <!-- Conteúdo Principal (Escondido até login) -->
+    <div id="content">
+        <button onclick="playVideo()">Clicar no Botão !!</button>
+        
+        <div id="heartContainer">
+            <div id="heart">❤️</div>
+            <div id="heartText">Lulu</div>
+        </div>
+
+        <div id="videoContainer">
+            <video id="myVideo" controls>
+                <source src="dia24_03.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            var password = document.getElementById("passwordInput").value;
+            if (password === CONFIG.senha) {
+                document.getElementById("loginContainer").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            } else {
+                alert("Senha incorreta! Tente novamente.");
+            }
+        }
+
+        function playVideo() {
+            document.getElementById("videoContainer").style.display = "block";
+            document.getElementById("myVideo").play();
+            document.getElementById("heartContainer").style.display = "none";
+        }
+    </script>
+</body>
+</html>
