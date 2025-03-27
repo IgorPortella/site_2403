@@ -17,16 +17,20 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
-        #videoContainer {
-            display: none;
-            margin-top: 20px;
+        #loginContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        video {
-            width: 100%;
-            max-width: 390px; /* Tamanho ideal para iPhone 12 */
-            height: auto;
-            border-radius: 10px;
+        input {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            text-align: center;
         }
         button {
             padding: 10px 20px;
@@ -36,26 +40,31 @@
             color: #4B0082;
             border: none;
             border-radius: 5px;
-            margin-top: 50px; /* Espaçamento do topo */
-            position: relative;
-            z-index: 2;
+        }
+        #content {
+            display: none;
+        }
+        #buttonContainer {
+            margin-top: 20px;
+        }
+        #videoContainer {
+            display: none;
+            margin-top: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 390px;
+            height: auto;
+            border-radius: 10px;
         }
         #heartContainer {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             text-align: center;
-            z-index: 1;
         }
         #heart {
             font-size: 200px;
+            margin-bottom: 10px;
         }
         #heartText {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             font-size: 40px;
             font-weight: bold;
             color: white;
@@ -63,25 +72,58 @@
     </style>
 </head>
 <body>
-    <button onclick="playVideo()">Clicar no Botão !!</button>
+    <script src="config.js"></script>
     
-    <div id="heartContainer">
-        <div id="heart">❤️</div>
-        <div id="heartText">Lulu</div>
+    <!-- Tela de Login -->
+    <div id="loginContainer">
+        <h2>Área Restrita</h2>
+        <input type="password" id="passwordInput" placeholder="Digite a senha">
+        <button onclick="checkPassword()">Entrar</button>
     </div>
 
-    <div id="videoContainer">
-        <video id="myVideo" controls>
-            <source src="dia24_03.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos.
-        </video>
+    <!-- Conteúdo Principal (Escondido até login) -->
+    <div id="content">
+        <!-- Botão para iniciar o vídeo -->
+        <div id="buttonContainer">
+            <button onclick="playVideo()">Clicar no Botão !!</button>
+        </div>
+
+        <!-- Coração e texto -->
+        <div id="heartContainer">
+            <div id="heart">❤️</div>
+            <div id="heartText">Lulu</div>
+        </div>
+
+        <!-- Vídeo escondido até ser ativado -->
+        <div id="videoContainer">
+            <video id="myVideo" controls>
+                <source src="dia24_03.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+        </div>
     </div>
 
     <script>
+        function checkPassword() {
+            if (typeof CONFIG === "undefined") {
+                alert("Erro ao carregar a configuração!");
+                return;
+            }
+
+            var password = document.getElementById("passwordInput").value;
+            if (password === CONFIG.senha) {
+                document.getElementById("loginContainer").style.display = "none";
+                document.getElementById("content").style.display = "block"; // Mostra o conteúdo
+            } else {
+                alert("Senha incorreta! Tente novamente.");
+            }
+        }
+
         function playVideo() {
             document.getElementById("videoContainer").style.display = "block";
             document.getElementById("myVideo").play();
-            document.getElementById("heartContainer").style.display = "none"; // Faz o coração desaparecer
+            document.getElementById("heartContainer").style.display = "none"; // Esconde o coração
+            document.getElementById("buttonContainer").style.display = "none"; // Esconde o botão após clicar
         }
     </script>
 </body>
