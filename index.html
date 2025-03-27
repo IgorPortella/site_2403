@@ -104,20 +104,19 @@
     </div>
 
     <script>
-        function checkPassword() {
-            if (typeof CONFIG === "undefined") {
-                alert("Erro ao carregar a configuração!");
-                return;
-            }
-
+    function checkPassword() {
+        if (window.CONFIG && window.CONFIG.senha) {
             var password = document.getElementById("passwordInput").value;
-            if (password === CONFIG.senha) {
+            if (password === window.CONFIG.senha) {
                 document.getElementById("loginContainer").style.display = "none";
-                document.getElementById("content").style.display = "block"; // Mostra o conteúdo
+                document.getElementById("content").style.display = "block";
             } else {
                 alert("Senha incorreta! Tente novamente.");
             }
+        } else {
+            alert("Erro ao carregar configuração. Verifique o config.js!");
         }
+    }
 
         function playVideo() {
             document.getElementById("videoContainer").style.display = "block";
