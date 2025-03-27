@@ -1,0 +1,3 @@
+window.CONFIG = {
+    senha: "lululove"
+};
